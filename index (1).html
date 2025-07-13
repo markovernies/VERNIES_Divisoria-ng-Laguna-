@@ -1,0 +1,64 @@
+<style>
+  :root {
+    --vernies-blue: #1c3f70;
+    --vernies-orange: #f94f0d;
+    --vernies-yellow: #ffb116;
+    --text-light: #f5f5f5;
+    --bg-dark: #111;
+    --bg-card: #222;
+    --border-card: #333;
+  }
+</style>
+
+<header>
+  <a href="#"><img src="logo.png" alt="Vernie's Logo" style="height: 50px; margin-right: 1rem;"></a>
+  <h1 style="color: var(--vernies-yellow)">VERNIE'S</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#pricelist">Pricelist</a>
+  </nav>
+</header>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+  function handleCredentialResponse(response) {
+    const data = jwt_decode(response.credential);
+    alert("Signed in as: " + data.name);
+  }
+
+  window.onload = function () {
+    google.accounts.id.initialize({
+      client_id: "YOUR_GOOGLE_CLIENT_ID",
+      callback: handleCredentialResponse
+    });
+    google.accounts.id.renderButton(
+      document.getElementById("googleSignIn"),
+      { theme: "outline", size: "large" }
+    );
+  };
+
+  function confirmDelete(button) {
+    if (confirm("Are you sure you want to delete this product?")) {
+      button.parentElement.remove();
+    }
+  }
+
+  function addProduct() {
+    const grid = document.getElementById("productGrid");
+    const card = document.createElement("div");
+    card.className = "price-card fade-in";
+    card.innerHTML = `
+      <button class='delete-btn' onclick='confirmDelete(this)'>×</button>
+      <input type='text' placeholder='Product Name'>
+      <input type='text' placeholder='Price'>
+      <input type='text' placeholder='Category'>
+      <input type='text' placeholder='Barcode'>
+    `;
+    grid.appendChild(card);
+  }
+</script>
+
+<div id="googleSignIn" style="text-align: center; margin-top: 1rem;"></div>
+
+<!-- STYLES OMITTED FOR BREVITY, PRESERVED IN ORIGINAL -->
+
